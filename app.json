@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "litecartesProject",
+    "slug": "litecartesProject",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/SplashScreen/splashscreens.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFD4B8"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.ryoaditarta.litecartesProject"
+    },
+    "web": {
+      "favicon": ""
+    },
+    "fonts": {
+      "NunitoReg": {
+        "asset": "./assets/fonts/Nunito/static/Nunito-Regular.ttf"
+      },
+      "NunitoSemiBold": {
+        "asset": "./assets/fonts/Nunito/static/Nunito-SemiBold.ttf"
+      },
+      "NunitoBold": {
+        "asset": "./assets/fonts/Nunito/static/Nunito-Bold.ttf"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2f8b8e36-494c-4bb8-93ed-33dad58a54d7"
+      }
+    }
+  }
+}
