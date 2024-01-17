@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {FIREBASE_AUTH} from '../../../FirebaseConfig'
+import { updateProfile, createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../../../FirebaseConfig'
+// import { API_URL } from '../../../API';
+// import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+// import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import CustomButton from '../../components/CustomButton/CustomButton';
 import CustomInput from '../../components/CustomInput/CustomInput';
@@ -11,12 +15,15 @@ import chatbox from '../../../assets/Register/chatbox.png'
 import chatboxtext from '../../../assets/Register/yukmulaitext.png'
 import google from '../../../assets/Register/google.png'
 
-const Register = () => {
+const Register = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [namalengkap, setNamaLengkap] = useState('');
     const [loading, setLoading] = useState(false);
-    const auth = FIREBASE_AUTH; 
+    const auth = FIREBASE_AUTH;
+    // const storageauth = initializeAuth(app, {
+    //     persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+    // });
 
     const handleForgotPassword = () => {
         // Implement your logic here
@@ -27,7 +34,20 @@ const Register = () => {
         setLoading(true);
         try {
             const response = await createUserWithEmailAndPassword(auth, username, password);
-            console.log(response);
+            await updateProfile(response.user, { displayName: namalengkap })
+            const rawResponse = await fetch('http://54.255.34.229:8060/users/' + response.user.uid, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                // body: JSON.stringify({ a: 1, b: 'Textual content' })
+            });
+            const content = await rawResponse.json();
+
+            console.log(content);
+
+            navigation.navigate('Login');
         } catch (error) {
             console.log("Error Occured");
             alert('Registration Failed' + error.message);
@@ -49,13 +69,13 @@ const Register = () => {
             </View>
             <View className="flex flex-col gap-5 h-full py-10 px-10">
                 <CustomInput
-                    placeholder="Nama Lengkap"
+                    placeholder="Username"
                     value={namalengkap}
                     setValue={setNamaLengkap}
                 />
 
                 <CustomInput
-                    placeholder="Username atau Email"
+                    placeholder="Email"
                     value={username}
                     setValue={setUsername}
                 />

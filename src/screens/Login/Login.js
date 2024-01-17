@@ -3,6 +3,7 @@ import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { FIREBASE_AUTH } from '../../../FirebaseConfig'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as SecureStore from 'expo-secure-store';
 const Stack = createNativeStackNavigator();
 
 
@@ -15,7 +16,7 @@ import chatboxtext from '../../../assets/Login/yukmasuktext.png'
 import google from '../../../assets/Login/google.png'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -30,8 +31,11 @@ const Login = ({navigation}) => {
         setLoading(true);
         try {
             const response = await signInWithEmailAndPassword(auth, username, password);
-            console.log(response);
-            navigation.navigate('Pretest'); 
+            const user = response.user;
+            const idToken = await user.getIdToken();
+            await SecureStore.setItemAsync('usertoken', idToken);
+            // console.log(response);
+            navigation.navigate('Pretest');
 
         } catch (error) {
             console.log("Error Occured");

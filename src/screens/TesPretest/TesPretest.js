@@ -41,7 +41,7 @@ const TesPretest = ({ navigation }) => {
             jawaban[progress / (100 / progress) - 1] = selectedButton;
             setSelectedButton(null);
         } else {
-            alert('Anda Yakin Ingin Selesai?')
+            // alert('Anda Yakin Ingin Selesai?')
             for (let i = 0; i < 4; i++) console.log(jawaban[i]);
             navigation.navigate('YaySelesaiPretest');
         }

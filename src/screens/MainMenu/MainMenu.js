@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
+import { FIREBASE_AUTH } from '../../../FirebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import MainMenuNavigation from '../../components/MainMenuNavigation/MainMenuNavigation';
 import KeteranganUser from '../../components/KeteranganUser/KeteranganUser';
 import CardTask from '../../components/CardTask/CardTask';
+import Layout from '../../Layout';
 
 import fox1 from '../../../assets/MainMenu/fox1.png';
 import fox2 from '../../../assets/MainMenu/fox2.png';
@@ -34,6 +37,7 @@ function generateTask(navigation) {
     fox[3] = fox4;
 
 
+
     for (let i = 0; i < 4; i++) {
         if (i % 2 == 0) {
             tasks.push(<CardTask navigation={navigation} warnaTextDesc='#8B340D' warnaTextButton='#FCC99F' warnaBgButton='#F37704' warnaBg='#FCC99F' isi={isi[i]} gambar={fox[i]} judul={judul[i]} key={i} />);
@@ -44,15 +48,49 @@ function generateTask(navigation) {
     return tasks;
 }
 
+
 const MainMenu = ({ navigation }) => {
+    // const [currentUser, setCurrentUser] = useState({ username: '', gems: 0, total_exp: 0, level: 1 })
+
+    // useEffect(() => {
+    //     onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    //         if (user) {
+    //             //user logged in
+    //             const uid = user.uid
+
+    //             fetch('http://54.255.34.229:8060/users/' + uid)
+    //                 .then(response => {
+    //                     if (!response.ok) {
+    //                         throw new Error('Network response was not ok');
+    //                     }
+    //                     return response.json(); // This returns a Promise
+    //                 })
+    //                 .then(data => {
+    //                     console.log(data.data);
+    //                     console.log(data.data.username)
+    //                     setCurrentUser(data.data);
+    //                 })
+    //                 .catch(error => {
+    //                     console.error('Fetch error:', error);
+    //                 });
+
+    //         } else {
+    //             navigation.navigate('Login');
+    //             alert('Belum Login!');
+    //         }
+    //     })
+    // }, [])
+
     return (
-        <View className="bg-cream" style={{ flex: 1 }}>
-            <KeteranganUser />
-            <ScrollView>
-                {generateTask(navigation)}
-            </ScrollView>
-            <MainMenuNavigation menuSekarang={0} navigation={navigation} />
-        </View>
+        <Layout>
+            <View className="bg-cream" style={{ flex: 1 }}>
+
+                <ScrollView>
+                    {generateTask(navigation)}
+                </ScrollView>
+                <MainMenuNavigation menuSekarang={0} navigation={navigation} />
+            </View>
+        </Layout>
     );
 }
 

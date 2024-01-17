@@ -6,8 +6,9 @@ import { AntDesign } from '@expo/vector-icons';
 import NextAndPrevButton from '../../components/NextAndPrevButton/NextAndPrevButton';
 
 import foxwithtrophy from '../../../assets/EvaluationScreen/foxwithtrophy.png'
+import foxgoblo from '../../../assets/EvaluationScreen/foxgoblo.png';
 
-const EvaluationScreen = ({ navigation }) => {
+const EvaluationScreen = ({ navigation, route }) => {
 
     const closeClicked = () => {
         navigation.navigate('MainMenu');
@@ -21,6 +22,9 @@ const EvaluationScreen = ({ navigation }) => {
     if (!fontsLoaded) {
         return null;
     }
+
+    const { total } = route.params;
+
     return (
         <View className="items-center justify-center px-10 flex-1 bg-cream h-full">
             <View className="gap-2 items-center flex-col h-[60vh] w-full rounded-3xl bg-litecartesOrange px-5">
@@ -29,16 +33,16 @@ const EvaluationScreen = ({ navigation }) => {
                         <NextAndPrevButton onPress={closeClicked} jenisFont='NunitoBold' text={<AntDesign name="close" size={24} color="#FFD4B8" />} bgColor='#662500' warnaFont='white' sizeX='20' />
                     </View>
                 </View>
-                <Text className="text-3xl text-center text-white" style={{ fontFamily: 'NunitoBold' }}>SEMPURNA</Text>
-                <Image source={foxwithtrophy} />
+                <Text className="text-3xl text-center text-white" style={{ fontFamily: 'NunitoBold' }}>{total[0] > total[1] ? 'SEMPURNA' : 'HUHU, BETTER LUCK NEXT TIME'}</Text>
+                <Image source={total[0]>total[1]?foxwithtrophy:foxgoblo} />
                 <View className="flex-row gap-1">
                     <View className="w-1/2 flex-col items-center bg-cream rounded-3xl p-2 gap-2">
                         <AntDesign name="checkcircle" size={35} color="#62BD2A" />
-                        <Text className="text-3xl text-center text-white" style={{ fontFamily: 'NunitoBold' }}>5</Text>
+                        <Text className="text-3xl text-center text-white" style={{ fontFamily: 'NunitoBold' }}>{total[0]}</Text>
                     </View>
                     <View className="w-1/2 flex-col items-center bg-cream rounded-3xl p-2 gap-2">
                         <AntDesign name="closecircle" size={35} color="#FF542E" />
-                        <Text className="text-3xl text-center text-white" style={{ fontFamily: 'NunitoBold' }}>0</Text>
+                        <Text className="text-3xl text-center text-white" style={{ fontFamily: 'NunitoBold' }}>{total[1]}</Text>
                     </View>
                 </View>
                 <View className="w-full bg-cream p-3 rounded-3xl">

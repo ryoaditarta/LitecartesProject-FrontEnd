@@ -20,12 +20,14 @@ const MainMenuNavigation = ({ menuSekarang, navigation }) => {
 
     }
     const AccountPressed = () => {
+        console.log("acount profile");
+        navigation.navigate('Profile');
 
     }
 
     const icons = [
         { icon: <MaterialCommunityIcons name="home-heart" size={30} color={menuSekarang === 0 ? "#8B340D" : "#FFD8D8"} />, onPress: HomeIconPressed },
-        { icon: <Ionicons name="trophy" size={28} color={menuSekarang === 1 ? "#8B340D" : "#FFD8D8"}  />, onPress: TrophyIconPressed },
+        { icon: <Ionicons name="trophy" size={28} color={menuSekarang === 1 ? "#8B340D" : "#FFD8D8"} />, onPress: TrophyIconPressed },
         { icon: <MaterialCommunityIcons name="square-edit-outline" size={30} color={menuSekarang === 2 ? "#8B340D" : "#FFD8D8"} />, onPress: EditOutlinePressed },
         { icon: <MaterialCommunityIcons name="account-group" size={30} color={menuSekarang === 3 ? "#8B340D" : "#FFD8D8"} />, onPress: GroupPressed },
         { icon: <MaterialCommunityIcons name="account" size={30} color={menuSekarang === 4 ? "#8B340D" : "#FFD8D8"} />, onPress: AccountPressed },
